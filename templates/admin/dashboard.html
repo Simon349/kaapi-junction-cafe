@@ -1,0 +1,49 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Dashboard — Admin{% endblock %}
+
+{% block admin_content %}
+<div class="admin-topbar">
+  <h1>Dashboard</h1>
+  <a href="{{ url_for('admin_menu_add') }}" class="btn btn-primary btn-small">+ Add Menu Item</a>
+</div>
+
+<div class="admin-cards">
+  <div class="admin-card">
+    <strong>{{ total_items }}</strong>
+    <span>Menu items</span>
+  </div>
+  <div class="admin-card">
+    <strong>{{ total_messages }}</strong>
+    <span>Total messages</span>
+  </div>
+  <div class="admin-card">
+    <strong>{{ unread_messages }}</strong>
+    <span>Unread messages</span>
+  </div>
+</div>
+
+<div class="admin-panel">
+  <h3>Recent messages</h3>
+  {% if recent_messages %}
+  <table class="admin-table">
+    <thead>
+      <tr><th>Name</th><th>Subject</th><th>Received</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for m in recent_messages %}
+      <tr>
+        <td>{{ m.name }}</td>
+        <td>{{ m.subject }}</td>
+        <td>{{ m.created_at.strftime('%d %b, %H:%M') }}</td>
+        <td>
+          {% if m.is_read %}<span class="pill pill-yes">Read</span>{% else %}<span class="pill pill-special">New</span>{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No messages yet — they'll show up here as customers write in.</p>
+  {% endif %}
+</div>
+{% endblock %}

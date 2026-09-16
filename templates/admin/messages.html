@@ -1,0 +1,45 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Messages — Admin{% endblock %}
+
+{% block admin_content %}
+<div class="admin-topbar">
+  <h1>Customer Messages</h1>
+</div>
+
+<div class="admin-panel">
+  {% if messages %}
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>From</th><th>Subject</th><th>Message</th><th>Received</th><th>Status</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in messages %}
+      <tr>
+        <td>{{ m.name }}<br><span style="color: var(--ink-soft); font-size:0.82rem;">{{ m.email }}{% if m.phone %} · {{ m.phone }}{% endif %}</span></td>
+        <td>{{ m.subject }}</td>
+        <td style="max-width: 280px;">{{ m.body }}</td>
+        <td>{{ m.created_at.strftime('%d %b %Y, %H:%M') }}</td>
+        <td>{% if m.is_read %}<span class="pill pill-yes">Read</span>{% else %}<span class="pill pill-special">New</span>{% endif %}</td>
+        <td>
+          <div class="table-actions">
+            {% if not m.is_read %}
+            <form method="POST" action="{{ url_for('admin_message_read', msg_id=m.id) }}">
+              <button type="submit" class="btn btn-outline-dark btn-small">Mark Read</button>
+            </form>
+            {% endif %}
+            <form method="POST" action="{{ url_for('admin_message_delete', msg_id=m.id) }}" data-confirm="Delete this message?">
+              <button type="submit" class="btn btn-danger btn-small">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No messages yet — they'll show up here as customers write in through the contact page.</p>
+  {% endif %}
+</div>
+{% endblock %}

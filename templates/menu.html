@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Menu — Kaapi Junction{% endblock %}
+
+{% block content %}
+
+<section class="menu-page-hero">
+  <div class="container">
+    <h1>The Menu</h1>
+    <p>Priced per cup, poured on order. Ask your barista what's freshest today.</p>
+    {% if grouped %}
+    <div class="menu-categories">
+      {% for cat in grouped.keys() %}
+      <span class="menu-cat-pill">{{ cat }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if grouped %}
+      {% for category, items in grouped.items() %}
+      <div class="menu-category">
+        <h2>{{ category }}</h2>
+        <ul class="menu-list">
+          {% for item in items %}
+          <li class="menu-row">
+            <span class="menu-row-name">{{ item.name }}{% if item.is_special %}<span class="badge-special">Chef's pick</span>{% endif %}</span>
+            <span class="menu-row-leader"></span>
+            <span class="menu-row-price">₹{{ "%.0f"|format(item.price) }}</span>
+            {% if item.description %}<span class="menu-row-desc">{{ item.description }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-state">The menu is being refreshed right now — check back shortly, or ask at the counter.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

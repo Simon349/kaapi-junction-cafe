@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Kaapi Junction — Filter Coffee & Espresso Bar, Gurugram{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">Filter Kaapi · Espresso · Cold Brew</div>
+      <h1>Your morning's favourite pit-stop</h1>
+      <p class="hero-lede">Coorg beans, brass tumblers, and the kind of coffee counter you find yourself walking back to. We pull espresso and pour filter kaapi under the same roof.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('menu') }}" class="btn btn-primary">View the Menu</a>
+        <a href="{{ url_for('contact') }}" class="btn btn-outline">Book a Table</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>12+</strong><span>brews on the menu</span></div>
+        <div><strong>7:30</strong><span>AM opening, daily</span></div>
+        <div><strong>100%</strong><span>Coorg-sourced beans</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="pour-wrap">
+        <svg viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg">
+          <!-- steam -->
+          <g stroke="#D4A65E" stroke-width="4" fill="none" stroke-linecap="round">
+            <path class="steam-line" d="M120 90 C 110 70, 130 60, 120 40" />
+            <path class="steam-line" d="M150 90 C 140 68, 160 58, 150 36" />
+            <path class="steam-line" d="M180 90 C 170 70, 190 60, 180 40" />
+          </g>
+          <!-- davara (bowl) -->
+          <ellipse cx="150" cy="330" rx="70" ry="14" fill="#7A4620" opacity="0.5"/>
+          <path d="M95 300 Q150 340 205 300 L198 250 Q150 265 102 250 Z" fill="#B8863E"/>
+          <ellipse cx="150" cy="250" rx="48" ry="10" fill="#D4A65E"/>
+          <!-- tumbler -->
+          <path d="M120 100 L128 220 Q150 232 172 220 L180 100 Z" fill="#B8863E"/>
+          <path d="M120 100 L180 100 L176 118 L124 118 Z" fill="#D4A65E"/>
+          <ellipse cx="150" cy="100" rx="30" ry="7" fill="#F3E7D4" opacity="0.9"/>
+          <!-- pour stream -->
+          <path d="M150 150 C 150 180, 150 200, 150 218" stroke="#5A3418" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Today's specials</h2>
+        <p>A short list of what's pulling well this week.</p>
+      </div>
+      <a href="{{ url_for('menu') }}" class="btn btn-outline-dark btn-small">See full menu</a>
+    </div>
+    {% if specials %}
+    <div class="specials-grid">
+      {% for item in specials %}
+      <div class="special-card">
+        <h3>{{ item.name }}</h3>
+        <p class="desc">{{ item.description }}</p>
+        <span class="special-price">₹{{ "%.0f"|format(item.price) }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Specials are being updated — the full menu is always brewing.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container story-split">
+    <div class="story-visual">
+      <svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="375" fill="#B8863E"/>
+        <circle cx="150" cy="150" r="90" fill="#2A1810" opacity="0.9"/>
+        <circle cx="150" cy="150" r="62" fill="#7A4620"/>
+        <ellipse cx="150" cy="150" rx="40" ry="40" fill="#1C0F08"/>
+        <g fill="#F3E7D4" opacity="0.85">
+          <ellipse cx="90" cy="270" rx="14" ry="9" transform="rotate(20 90 270)"/>
+          <ellipse cx="120" cy="285" rx="14" ry="9" transform="rotate(-10 120 285)"/>
+          <ellipse cx="155" cy="270" rx="14" ry="9" transform="rotate(35 155 270)"/>
+          <ellipse cx="190" cy="290" rx="14" ry="9" transform="rotate(-20 190 290)"/>
+          <ellipse cx="215" cy="265" rx="14" ry="9" transform="rotate(15 215 265)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="story-copy">
+      <h2>Filter coffee never went out of style — we just built an espresso bar next to it</h2>
+      <p>Kaapi Junction started as a single steel counter run by two friends who couldn't agree on whether filter kaapi or espresso made a better cup. Six years on, we still haven't settled it, so we serve both — properly, without shortcuts, from beans grown on the same Coorg estates our families have bought from for years.</p>
+      <p>Every cup is pulled or decocted to order. No syrups pretending to be flavour, no machine left unattended.</p>
+      <a href="{{ url_for('about') }}" class="btn btn-outline-dark">Read our full story</a>
+      <div class="story-values">
+        <div><h4>2019</h4><span>Since</span></div>
+        <div><h4>Coorg</h4><span>Bean origin</span></div>
+        <div><h4>3</h4><span>Outlets in NCR</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>What regulars say</h2>
+        <p>A few notes left at the counter.</p>
+      </div>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p>"The filter kaapi tastes like my grandmother's, minus the forty-minute wait. I come here before every 9 AM meeting."</p>
+        <div class="testimonial-name">— Ananya R., regular since 2021</div>
+      </div>
+      <div class="testimonial-card">
+        <p>"Finally a place in Gurugram that treats filter coffee and espresso as equals instead of picking a side."</p>
+        <div class="testimonial-name">— Karan M., Sector 29</div>
+      </div>
+      <div class="testimonial-card">
+        <p>"Their nitro cold brew got me through three back-to-back client calls. No notes."</p>
+        <div class="testimonial-name">— Priya S., first-time visitor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

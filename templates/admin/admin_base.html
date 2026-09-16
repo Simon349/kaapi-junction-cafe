@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Admin — Kaapi Junction{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="admin-body">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-stack">
+    {% for category, message in messages %}
+      <div class="flash flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <span class="brand-mark">Kaapi Junction</span>
+    <span class="brand-sub">ADMIN PANEL</span>
+    <ul class="admin-nav">
+      <li><a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if request.endpoint == 'admin_dashboard' }}">Dashboard</a></li>
+      <li><a href="{{ url_for('admin_menu') }}" class="{{ 'active' if request.endpoint in ['admin_menu','admin_menu_add','admin_menu_edit'] }}">Menu Items</a></li>
+      <li><a href="{{ url_for('admin_messages') }}" class="{{ 'active' if request.endpoint == 'admin_messages' }}">Messages</a></li>
+      <li><a href="{{ url_for('home') }}" target="_blank">View Site ↗</a></li>
+      <li><a href="{{ url_for('admin_logout') }}">Log Out</a></li>
+    </ul>
+  </aside>
+  <main class="admin-main">
+    {% block admin_content %}{% endblock %}
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

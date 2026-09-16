@@ -1,0 +1,42 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Menu Items — Admin{% endblock %}
+
+{% block admin_content %}
+<div class="admin-topbar">
+  <h1>Menu Items</h1>
+  <a href="{{ url_for('admin_menu_add') }}" class="btn btn-primary btn-small">+ Add Item</a>
+</div>
+
+<div class="admin-panel">
+  {% if items %}
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Name</th><th>Category</th><th>Price</th><th>Special</th><th>Available</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.category }}</td>
+        <td>₹{{ "%.0f"|format(item.price) }}</td>
+        <td>{% if item.is_special %}<span class="pill pill-special">Yes</span>{% else %}<span class="pill pill-no">No</span>{% endif %}</td>
+        <td>{% if item.is_available %}<span class="pill pill-yes">Yes</span>{% else %}<span class="pill pill-no">No</span>{% endif %}</td>
+        <td>
+          <div class="table-actions">
+            <a href="{{ url_for('admin_menu_edit', item_id=item.id) }}" class="btn btn-outline-dark btn-small">Edit</a>
+            <form method="POST" action="{{ url_for('admin_menu_delete', item_id=item.id) }}" data-confirm="Delete '{{ item.name }}'? This can't be undone.">
+              <button type="submit" class="btn btn-danger btn-small">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No menu items yet. Add your first one to get the menu page live.</p>
+  {% endif %}
+</div>
+{% endblock %}

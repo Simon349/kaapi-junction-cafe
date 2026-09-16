@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Contact & Reservations — Kaapi Junction{% endblock %}
+
+{% block content %}
+
+<section class="menu-page-hero">
+  <div class="container">
+    <h1>Visit or Write to Us</h1>
+    <p>Drop by the counter, or send a message and we'll get back within the day.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-split">
+    <div>
+      <div class="contact-info-item">
+        <h4>Address</h4>
+        <p>Ground Floor, Plot 14, Sector 29 Market<br>Gurugram, Haryana 122001</p>
+      </div>
+      <div class="contact-info-item">
+        <h4>Hours</h4>
+        <p>Monday – Sunday, 7:30 AM – 10:00 PM</p>
+      </div>
+      <div class="contact-info-item">
+        <h4>Phone</h4>
+        <p><a href="tel:+911244567890">+91 124 456 7890</a></p>
+      </div>
+      <div class="contact-info-item">
+        <h4>Email</h4>
+        <p><a href="mailto:hello@kaapijunction.in">hello@kaapijunction.in</a></p>
+      </div>
+    </div>
+
+    <div>
+      <form method="POST" action="{{ url_for('contact') }}">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="subject">What's this about</label>
+            <select id="subject" name="subject">
+              <option>General enquiry</option>
+              <option>Table reservation</option>
+              <option>Feedback</option>
+              <option>Bulk / catering order</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Tell us the date, time and party size if this is a reservation..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
